@@ -52,3 +52,12 @@ if __name__ == "__main__":
     for file_path, points in clouds.items():
         save_xyz(points, file_path)
         print(f"Zapisano {len(points)} punktów do pliku {file_path}")
+
+    offsets = {
+        "plaszczyzna_pozioma.xyz": (0, 0, 0),
+        "plaszczyzna_pionowa.xyz": (20, 0, 0),
+        "walec.xyz": (-20, 0, 0),
+    }
+    combined = np.vstack([clouds[name] + offset for name, offset in offsets.items()])
+    save_xyz(combined, "chmury_polaczone.xyz")
+    print(f"Zapisano {len(combined)} punktów do pliku chmury_polaczone.xyz")
