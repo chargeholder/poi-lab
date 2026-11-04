@@ -38,15 +38,17 @@ def generate_cylinder(radius, height, num_points):
     return np.column_stack((x, y, z))
 
 
+def save_xyz(points, file_path):
+    np.savetxt(file_path, points, fmt="%.6f", delimiter=" ")
+
+
 if __name__ == "__main__":
     clouds = {
-        "Płaszczyzna pozioma": generate_horizontal_plane(10, 20, 2000),
-        "Płaszczyzna pionowa": generate_vertical_plane(10, 5, 2000),
-        "Walec": generate_cylinder(3, 8, 2000),
+        "plaszczyzna_pozioma.xyz": generate_horizontal_plane(10, 20, 2000),
+        "plaszczyzna_pionowa.xyz": generate_vertical_plane(10, 5, 2000),
+        "walec.xyz": generate_cylinder(3, 8, 2000),
     }
 
-    for name, points in clouds.items():
-        print(name)
-        print(f"  liczba punktów: {len(points)}")
-        print(f"  minimum (x, y, z): {points.min(axis=0).round(2)}")
-        print(f"  maksimum (x, y, z): {points.max(axis=0).round(2)}")
+    for file_path, points in clouds.items():
+        save_xyz(points, file_path)
+        print(f"Zapisano {len(points)} punktów do pliku {file_path}")
